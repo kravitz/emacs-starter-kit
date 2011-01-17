@@ -1,0 +1,36 @@
+#+TITLE: Haru.org
+#+OPTIONS: H:3 num:nil toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t TeX:t LaTeX:nil skip:nil d:t tags:not-in-toc
+#+STARTUP: INDENT
+
+1. Включение красивой расцветки -- цветовой темы zenburn
+
+#+begin_src emacs-lisp :tangle yes
+  (require 'zenburn)
+  (color-theme-zenburn)
+#+end_src
+
+2. Второй язык — русский.
+
+#+begin_src emacs-lisp
+ (set-input-method 'russian-computer)
+ (inactivate-input-method)
+#+end_src
+
+3. *M-Space* — переключение между языками. Две легко доступные,
+    вплотную расположенные клавиши — это лучший вариант. Эта
+    комбинация пересекается с вызовом «меню окна» в среде GNOME, но в
+    гноме я отключил это сочетание за ненадобностью.
+
+#+begin_src emacs-lisp
+  (global-set-key (kbd "M-SPC") 'toggle-input-method)
+#+end_src
+
+4. *F11* включает полноэкранный режим. Требует наличия программы
+   *wmctrl*.
+
+#+begin_src emacs-lisp
+  (defun switch-full-screen ()
+    (interactive)
+    (shell-command "wmctrl -r :ACTIVE: -btoggle,fullscreen"))
+  (global-set-key [f11] 'switch-full-screen)
+#+end_src 
