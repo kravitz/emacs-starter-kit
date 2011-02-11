@@ -7,3 +7,6 @@
 [submodule "src/zenburn-emacs"]
 	path = src/zenburn-emacs
 	url = http://github.com/bbatsov/zenburn-emacs.git
+[submodule "src/haskell-mode"]
+	path = src/haskell-mode
+	url = https://github.com/jwiegley/haskell-mode.git
