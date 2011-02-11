@@ -10,3 +10,6 @@
 [submodule "src/haskell-mode"]
 	path = src/haskell-mode
 	url = https://github.com/jwiegley/haskell-mode.git
+[submodule "src/auctex"]
+	path = src/auctex
+	url = git://github.com/eschulte/auctex.git
