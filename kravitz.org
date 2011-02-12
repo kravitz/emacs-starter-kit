@@ -12,8 +12,8 @@
 2. Второй язык — русский.
 
 #+begin_src emacs-lisp
- (set-input-method 'russian-computer)
- (inactivate-input-method)
+  (set-input-method 'russian-computer)
+  (inactivate-input-method)
 #+end_src
 
 3. *M-Space* — переключение между языками. Две легко доступные,
@@ -35,7 +35,7 @@
   (global-set-key [f11] 'switch-full-screen)
 #+end_src
 
-5. *Smart Tab* — говорит само за себя. Код взят с [[http://www.emacswiki.org/emacs/TabCompletion][Emacs Wiki]], цельный
+1. *Smart Tab* — говорит само за себя. Код взят с [[http://www.emacswiki.org/emacs/TabCompletion][Emacs Wiki]], цельный
    пакет кода смотреть на [[https://github.com/genehack/smart-tab][Gihub]].
 
    #+begin_src emacs-lisp
@@ -80,5 +80,12 @@
    #+end_src
 
    #+begin_src emacs-lisp
-   (global-set-key (kbd "TAB") 'smart-tab)
+      (global-set-key (kbd "TAB") 'smart-tab)
    #+end_src
+
+6. Настраиваем haskell-mode
+   #+BEGIN_SRC emacs-lisp
+     (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+     (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+   #+END_SRC
+
