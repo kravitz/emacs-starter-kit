@@ -1,0 +1,14 @@
+#+TITLE: Haru.org
+#+OPTIONS: H:3 num:nil toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t TeX:t LaTeX:nil skip:nil d:t tags:not-in-toc
+#+STARTUP: INDENT
+
+Запускаем emacs в серверном режиме -- это специфично для EmacsW32
+#+begin_src emacs-lisp :tangle yes
+	(server-start)
+#+end_src
+Устанавливаем аспел
+#+begin_src emacs-lisp :tangle yes            
+	(custom-set-variables
+    	'(ispell-dictionary "british")
+    	'(ispell-program-name "C:\\tools\\Aspell\\bin\\aspell.exe"))
+#+end_src
