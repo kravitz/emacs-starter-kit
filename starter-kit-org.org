@@ -148,3 +148,11 @@ the documentation for the Starter Kit to html.
                    :auto-postamble nil)))
 #+end_src
 
+** Enable use of amsmath
+This two lines somehow enables amsmath in orgmode
+
+#+begin_src emacs-lisp :results silent
+  (add-to-list 'org-export-latex-packages-alist '("" "amsmath" t))
+  (setcar (rassoc '("wasysym" t) org-export-latex-default-packages-alist)
+          "integrals")
+#+end_src
