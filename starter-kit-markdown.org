@@ -1,0 +1,16 @@
+#+TITLE: Starter Kit Markdown
+#+OPTIONS: toc:nil num:nil ^:nil
+
+This is not part of Emacs Starter Kit
+
+* Markdown
+
+** Common way to connect
+Add autoload, set file pattern to autoload
+
+#+begin_src emacs-lisp
+(autoload 'markdown-mode "markdown-mode.el"
+   "Major mode for editing Markdown files" t)
+(setq auto-mode-alist
+   (cons '("\\.text" . markdown-mode) auto-mode-alist))
+#+end_src

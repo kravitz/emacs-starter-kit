@@ -511,6 +511,13 @@ Located in [[file:starter-kit-latex.org][starter-kit-latex]]
 ;; (starter-kit-load "starter-kit-latex.org")
 #+end_src
 
+*** Starter Kit Markdown
+Located in [[file:starter-kit-markdown.org][starter-kit-markdown]]
+
+#+begin_src emacs-lisp
+(starter-kit-load "starter-kit-markdown.org")
+#+end_src
+
 ** Load User/System Specific Files
 *** Settings from M-x customize
 #+srcname: m-x-customize-customizations
