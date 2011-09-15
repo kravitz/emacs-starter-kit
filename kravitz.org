@@ -3,41 +3,35 @@
 #+STARTUP: INDENT
 
 1. Включение красивой расцветки -- цветовой темы zenburn
-
-#+begin_src emacs-lisp :tangle yes
-  (require 'zenburn)
-  (color-theme-zenburn)
-#+end_src
+   #+begin_src emacs-lisp :tangle yes
+     (require 'zenburn) (color-theme-zenburn)
+   #+end_src
 
 2. Второй язык — русский.
-
-#+begin_src emacs-lisp
-  (set-input-method 'russian-computer)
-  (inactivate-input-method)
-#+end_src
+   #+begin_src emacs-lisp
+     (set-input-method 'russian-computer)
+     (inactivate-input-method)
+   #+end_src
 
 3. *M-Space* — переключение между языками. Две легко доступные,
     вплотную расположенные клавиши — это лучший вариант. Эта
     комбинация пересекается с вызовом «меню окна» в среде GNOME, но в
     гноме я отключил это сочетание за ненадобностью.
-
-#+begin_src emacs-lisp
-  (global-set-key (kbd "M-SPC") 'toggle-input-method)
-#+end_src
+    #+begin_src emacs-lisp
+      (global-set-key (kbd "M-SPC") 'toggle-input-method)
+    #+end_src
 
 4. *F11* включает полноэкранный режим. Требует наличия программы
    *wmctrl*.
+   #+begin_src emacs-lisp
+     (defun switch-full-screen ()
+       (interactive)
+       (shell-command "wmctrl -r :ACTIVE: -btoggle,fullscreen"))
+     (global-set-key [f11] 'switch-full-screen)
+   #+end_src
 
-#+begin_src emacs-lisp
-  (defun switch-full-screen ()
-    (interactive)
-    (shell-command "wmctrl -r :ACTIVE: -btoggle,fullscreen"))
-  (global-set-key [f11] 'switch-full-screen)
-#+end_src
-
-1. *Smart Tab* — говорит само за себя. Код взят с [[http://www.emacswiki.org/emacs/TabCompletion][Emacs Wiki]], цельный
+5. *Smart Tab* — говорит само за себя. Код взят с [[http://www.emacswiki.org/emacs/TabCompletion][Emacs Wiki]], цельный
    пакет кода смотреть на [[https://github.com/genehack/smart-tab][Gihub]].
-
    #+begin_src emacs-lisp
      (setq hippie-expand-try-functions-list
            '(;yas/hippie-try-expand
@@ -78,7 +72,6 @@
                           (region-end))
          (indent-for-tab-command)))
    #+end_src
-
    #+begin_src emacs-lisp
       (global-set-key (kbd "TAB") 'smart-tab)
    #+end_src
@@ -89,3 +82,52 @@
      (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
    #+END_SRC
 
+7. Добавляем фортунки, доблестно забрано с руководства от zahardzhan
+   http://zahardzhan.github.com/2011/fortunes-for-emacs.html
+   #+begin_src emacs-lisp
+     (defvar fortune-file "~/.emacs.d/fortunes"
+       "The file that fortunes come from.")   
+   #+end_src
+   Функция fortune выбирает из файла случайную фортунку.
+   #+begin_src emacs-lisp
+     (defvar fortune-strings nil
+          "The fortunes in the fortune file.")
+        
+          (defun open-fortune-file (file)
+            (find-file file)
+            (if (null fortune-strings)
+                (let ((strings nil)
+                  (prev 1))
+              (goto-char (point-min))
+              (while (re-search-forward "^%$" (point-max) t)
+                (push (buffer-substring-no-properties prev (- (point) 1))
+                      strings)
+                (setq prev (1+ (point))))
+              (push (buffer-substring-no-properties prev (point-max)) strings)
+              (setq fortune-strings (apply 'vector strings)))))
+          
+          (defun fortune ()
+            "Get a fortune to display."
+            (interactive)
+            (when (null fortune-strings)
+              (open-fortune-file fortune-file)
+              (kill-buffer (current-buffer)))
+            (let* ((n (random (length fortune-strings)))
+               (string (aref fortune-strings n)))
+              (if (interactive-p)
+              (message (format "%s" string))
+              string)))
+   #+end_src
+   Заменяем функцию, показывающую при запуске текст в *scratch*-буфере на
+   собственную
+   #+begin_src emacs-lisp
+     (defun startup-echo-area-message ()
+     (interactive)
+     (let ((start (point))
+           (buffer-was-modified? (buffer-modified-p)))
+       (insert (fortune))
+       (comment-region start (point))
+       (newline)
+       (unless buffer-was-modified?
+         (not-modified))))
+   #+end_src
