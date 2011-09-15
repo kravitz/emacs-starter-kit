@@ -4,7 +4,8 @@
 
 1. Включение красивой расцветки -- цветовой темы zenburn
    #+begin_src emacs-lisp :tangle yes
-     (require 'zenburn) (color-theme-zenburn)
+     (require 'color-theme-zenburn)
+     (color-theme-zenburn)
    #+end_src
 
 2. Второй язык — русский.
